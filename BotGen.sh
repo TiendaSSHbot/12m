@@ -6,25 +6,20 @@
 		for dirs in $dir; do
 	mkdir -p $dirs &> /dev/null
 		done
-	src="./botdk/data-code";dataU="./botdk/data-usr";arqbot="comandos gerar_key link power ayuda costes listID reinicio back_ID donar invalido menu status cache myip update kill_drop.sh id";clear
+	src="./botdk/data-code";base="./botdk";dataU="./botdk/data-usr";arqbot="comandos gerar_key link power ayuda costes listID reinicio back_ID donar invalido menu status cache myip update kill_drop.sh id";clear
 	for arqxbt in $arqbot; do
 	echo -ne "\e[1;30m[\e[1;33mFILE: \e[1;32m${arqxbt}\e[1;30m] -->	";wget -O ${src}/${arqxbt} https://raw.githubusercontent.com/TiendaSSHbot/12m/main/${arqxbt} &> /dev/null;chmod +x ${src}/${arqxbt};echo -e " \e[1;32m[✓]DESCARGADO[✓]"
 	done
-	wget -O ./botdk/ShellBot.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/ShellBot.sh &> /dev/null
-	chmod +x ./botdk/*.sh
+	wget -O ${base}/ShellBot.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/ShellBot.sh &> /dev/null
 		) && echo -e "\e[1;32m[✓]FILES BOT DESCARGADOS[✓]" || echo -e "\e[1;31m[X]ERROR[X]"
 	clear;echo -ne "\n\e[1;30m[\e[1;33m+\e[1;30m Ingrese su ID: ";read id;echo -ne "\e[1;30m[\e[1;33m•\e[1;30m] Ingresa tu token: ";read token
 	echo ${id} >${dataU}/Admin-ID;echo ${token} > ${dataU}/token
+	wget -O ${base}/BotGen.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/BotGen.sh &> /dev/null;chmod +x ./botdk/*.sh
 	fi
 LINE="   ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••"
-source ./botdk/ShellBot.sh;source ${src}/menu;source ${src}/ayuda;source ${src}/cache;source ${src}/invalido;source ${src}/status;source ${src}/reinicio;source ${src}/myip;source ${src}/id;source ${src}/back_ID;source ${src}/link;source ${src}/listID;source ${src}/gerar_key;source ${src}/power;source ${src}/comandos;source ${src}/update;source ${src}/donar;source ${src}/costes
-# Token del bot
-bot_token="$(cat ${CIDdir}/token)"
-
-# Inicializando el bot
-ShellBot.init --token "$bot_token" --monitor --flush --return map
-ShellBot.username
-
+	source ./botdk/ShellBot.sh;source ${src}/menu;source ${src}/ayuda;source ${src}/cache;source ${src}/invalido;source ${src}/status;source ${src}/reinicio;source ${src}/myip;source ${src}/id;source ${src}/back_ID;source ${src}/link;source ${src}/listID;source ${src}/gerar_key;source ${src}/power;source ${src}/comandos;source ${src}/update;source ${src}/donar;source ${src}/costes
+bot_token="$(cat ${base}/token)"
+	ShellBot.init --token "$bot_token" --monitor --flush --return map;ShellBot.username
 reply () {
         [[ ! -z ${callback_query_message_chat_id[$id]} ]] && var=${callback_query_message_chat_id[$id]} || var=${message_chat_id[$id]}
 
@@ -77,7 +72,7 @@ user=User-ID
 [[ -e ${CID} ]] && rm ${CID}
 local file_id
           ShellBot.getFile --file_id ${message_document_file_id[$id]}
-          ShellBot.downloadFile --file_path "${return[file_path]}" --dir "${CIDdir}"
+          ShellBot.downloadFile --file_path "${return[file_path]}" --dir "${base}"
                   [[ -e ${return[file_path]} ]] && mv ${return[file_path]} ${CID}
 local bot_retorno="ID user botgen\n"
                 bot_retorno+="$LINE\n"
@@ -110,7 +105,7 @@ upfile_fun () {
 }
 
 upimg_fun () {
-          ShellBot.sendDocument --chat_id $(cat ${CIDdir}/Admin-ID)  \
+          ShellBot.sendDocument --chat_id $(cat ${base}/Admin-ID)  \
                              --document @${1} \
                              #--caption  "$(echo -e "$bot_retorno")" \
                              #--parse_mode html \
@@ -154,7 +149,7 @@ send_admin(){
         comand_boton "atras"
 
         saveID "${callback_query_from_id}"
-        var=$(cat < ${CIDdir}/Admin-ID)
+        var=$(cat < ${base}/Admin-ID)
         ShellBot.sendMessage    --chat_id $var \
                                                         --text "$(echo -e "$bot_retorno2")" \
                                                         --parse_mode html \
@@ -232,7 +227,12 @@ botao_user=''
 botao_donar=''
 unset botao_send_id
 botao_send_id=''
-ShellBot.InlineKeyboardButton --button 'botao_send_id' --line 1 --text "ENVIAR al ADM" --callback_data '/sendid'
+function boton(){
+[[ $1 == "-n" ]] && ShellBot.InlineKeyboardButton --button "botao_$1" --line $2 --text "$3" --callback_data "$4"
+[[ $1 == "-l" ]] && ShellBot.InlineKeyboardButton --button "botao_$1" --line $2 --text "$3" --callback_data "$4" --url "$5"
+}
+boton -n "send_id" "1" "Enviar al admin" "/sendid";boton -l "send_id" "2" "admin" "1" "https://t.me/donpato01"
+#ShellBot.InlineKeyboardButton --button 'botao_send_id' --line 1 --text "ENVIAR al ADM" --callback_data '/sendid'
 ShellBot.InlineKeyboardButton --button 'botao_send_id' --line 1 --text "menu" --callback_data '/menu'
 
 ShellBot.InlineKeyboardButton --button 'botao_conf' --line 1 --text 'NEW ID' --callback_data '/add'
@@ -252,7 +252,6 @@ ShellBot.InlineKeyboardButton --button 'botao_user' --line 3 --text ' � WTS �
 ShellBot.InlineKeyboardButton --button 'botao_user' --line 3 --text ' MENU ' --callback_data '/menu'
 
 #ShellBot.InlineKeyboardButton --button 'botao_user' --line 2 --text ' Contacto 📲' --callback_data  '1' --url 'https://wa.me/593987072611?text=Hola!,%20ℂ𝕙𝕦𝕞𝕠𝔾ℍ%20Me%20interesa%20Conocer%20más%20sobre%20el%20ADM.'
-ShellBot.InlineKeyboardButton --button 'botao_donar' --line 2 --text 'Donar Paypal' --callback_data '1' --url "$(cat < /etc/urlDN)"
 ShellBot.InlineKeyboardButton --button 'botao_donar' --line 2 --text 'ACCEDER WHATSAPP' --callback_data '1' --url "https://wa.me/$(cat < /etc/numctc)"
 
 # Ejecutando escucha del bot
@@ -268,8 +267,8 @@ while true; do
             [[ -z $comando ]] && comando=(${callback_query_data[$id]})
             #echo "comando $comando"
 
-            [[ ! -e "${CIDdir}/Admin-ID" ]] && echo "null" > ${CIDdir}/Admin-ID
-            permited=$(cat ${CIDdir}/Admin-ID | awk '{print $1}')
+            [[ ! -e "${base}/Admin-ID" ]] && echo "null" > ${base}/Admin-ID
+            permited=$(cat ${base}/Admin-ID | awk '{print $1}')
             comand
     done
 done
