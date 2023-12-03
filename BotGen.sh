@@ -22,7 +22,8 @@ source ${src}/ShellBot.sh
 source ./ShellBot.sh;source ${src}/menu;source ${src}/ayuda;source ${src}/cache;source ${src}/invalido;source ${src}/status;source ${src}/reinicio;source ${src}/myip;source ${src}/id;source ${src}/back_ID;source ${src}/link;source ${src}/listID;source ${src}/gerar_key;source ${src}/power;source ${src}/comandos;source ${src}/update;source ${src}/donar;source ${src}/costes
 bot_token="$(cat ${dataU}/token)"
 read -p "	ENTER PARA INICIAR BOT" x
-[[ $x =@(x|X|Si|na) ]] && bash ./botdk/BotGen.sh || bash ./botdk/BotGen.sh
+rm $(pwd)/0
+[[ $x =@(x|X|Si|na) ]] && ./botdk/BotGen.sh || ./botdk/BotGen.sh
 
 	ShellBot.init --token "$bot_token" --monitor --flush --return map;ShellBot.username
 reply () {
