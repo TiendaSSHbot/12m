@@ -14,11 +14,11 @@
 	wget -O $base/BotGen.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/BotGen.sh &> /dev/null;chmod +x ./botdk/*.sh
 		) && echo -e "\e[1;32m[✓]FILES BOT DESCARGADOS[✓]" || echo -e "\e[1;31m[X]ERROR[X]"
 	clear;echo -ne "\n\e[1;30m[\e[1;33m+\e[1;30m Ingrese su ID: ";read id;echo -ne "\e[1;30m[\e[1;33m•\e[1;30m] Ingresa tu token: ";read token
-	echo ${id} >${dataU}/Admin-ID;echo ${token} > ${dataU}/token
+	echo -e "${id}" >> ${dataU}/Admin-ID;echo -e "${token}" >> ${dataU}/token
 	fi
 LINE="   ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••"
 	source ./botdk/ShellBot.sh;source ${src}/menu;source ${src}/ayuda;source ${src}/cache;source ${src}/invalido;source ${src}/status;source ${src}/reinicio;source ${src}/myip;source ${src}/id;source ${src}/back_ID;source ${src}/link;source ${src}/listID;source ${src}/gerar_key;source ${src}/power;source ${src}/comandos;source ${src}/update;source ${src}/donar;source ${src}/costes
-bot_token="$(cat ${base}/token)"
+bot_token="$(cat ${dataU}/token)"
 	ShellBot.init --token "$bot_token" --monitor --flush --return map;ShellBot.username
 reply () {
         [[ ! -z ${callback_query_message_chat_id[$id]} ]] && var=${callback_query_message_chat_id[$id]} || var=${message_chat_id[$id]}
@@ -268,7 +268,7 @@ while true; do
             #echo "comando $comando"
 
             [[ ! -e "${base}/Admin-ID" ]] && echo "null" > ${base}/Admin-ID
-            permited=$(cat ${base}/Admin-ID | awk '{print $1}')
+            permited=$(cat ${dataU}/Admin-ID | awk '{print $1}')
             comand
     done
 done
