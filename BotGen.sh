@@ -1,19 +1,22 @@
 #!/bin/bash
-
-CIDdir=/etc/ADM-db && [[ ! -d ${CIDdir} ]] && mkdir ${CIDdir}
-CIDimg=/etc/tokenIMG && [[ ! -d ${CIDimg} ]] && mkdir ${CIDimg}
-SRC="${CIDdir}/sources" && [[ ! -d ${SRC} ]] && mkdir ${SRC}
-CID="${CIDdir}/User-ID" && [[ ! -e ${CID} ]] && echo > ${CID}
-CIDRESS="${CIDdir}/RESSELLERS" && [[ ! -e ${CIDRESS} ]] &&  mkdir ${CIDRESS}
-keytxt="${CIDdir}/keys" && [[ ! -d ${keytxt} ]] && mkdir ${keytxt}
-timg="${CIDimg}/img" && [[ ! -d ${timg} ]] && mkdir ${timg}
+[[ ! -e "./ShellBot.sh" ]] && wget -O ./ShellBot.sh https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Otros/ShellBot.sh &> /dev/null
+dir="./botdk";CIDdir="${dir}/code-base";SRC="${CIDdir}/sources";CIDRESS="${CIDdir}/RESSELLERS";keytxt="${CIDdir}/keys"
+dir="${dir} ${CIDdir} ${SRC} ${keytxt} ${CIDRESS}"
+	for Dir in $dir; do
+	[[ ! -e $Dir ]] && mkdir -p $Dir &> /dev/null
+	done
+bot="comandos gerar_key link power ayuda costes id listID reinicio back_ID donar invalido menu status cache kill_drop.sh myip update"
+	for arqxbt in $bot; do
+	[[ ! -e ${SRC}/${arqxbt} ]] && {
+	wget -O ${SRC}/$arqxbt https://raw.githubusercontent.com/TiendaSSHbot/12m/main/$arqxbt &> /dev/null;chmod 777 $arqxbt
+	}
+	done
+CID="${CIDdir}/User-ID" && [[ ! -e ${CID} ]] && touch > ${CID}
 [[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] || apt-get install jq -y &>/dev/null
-[[ ! -e "/bin/ShellBot.sh" ]] && wget -O /bin/ShellBot.sh https://raw.githubusercontent.com/NetVPS/Generador-BOT/main/Otros/ShellBot.sh &> /dev/null
-[[ -e /etc/texto-bot ]] && rm /etc/texto-bot
 LINE="   ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••"
 
 # Importando API
-source ShellBot.sh
+source ./ShellBot.sh
 source ${SRC}/menu
 source ${SRC}/ayuda
 source ${SRC}/cache
