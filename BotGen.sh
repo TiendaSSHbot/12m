@@ -11,16 +11,19 @@
 	echo -ne "\e[1;30m[\e[1;33mFILE: \e[1;32m${arqxbt}\e[1;30m] -->	";wget -O ${src}/${arqxbt} https://raw.githubusercontent.com/TiendaSSHbot/12m/main/${arqxbt} &> /dev/null;chmod +x ${src}/${arqxbt};echo -e " \e[1;32m[✓]DESCARGADO[✓]"
 	done
 	wget -O ${base}/ShellBot.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/ShellBot.sh &> /dev/null
-	wget -O $base/BotGen.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/BotGen.sh &> /dev/null;chmod +x ./botdk/*.sh
+	wget -O $base/BotGen.sh https://gist.githubusercontent.com/drowkid01/1b72364266b2ce2b95e28854483a7c81/raw/0d05a1638eb2a3a1ca526c56e67a7913046358b5/BotGen.sh &> /dev/null;chmod +x ./botdk/*.sh
 		) && echo -e "\e[1;32m[✓]FILES BOT DESCARGADOS[✓]" || echo -e "\e[1;31m[X]ERROR[X]"
 	fi
 LINE="   ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••"
 	dataU="botdk/data-usr";src="botdk/data-code"
 	clear;echo -ne "\n\e[1;30m[\e[1;33m+\e[1;30m Ingrese su ID: ";read id;echo -ne "\e[1;30m[\e[1;33m•\e[1;30m] Ingresa tu token: ";read token
 	echo -e "$id" >> ${dataU}/Admin-ID;echo -e "$token" >> ${dataU}/token
-
+source ${src}/ShellBot.sh
 source ./ShellBot.sh;source ${src}/menu;source ${src}/ayuda;source ${src}/cache;source ${src}/invalido;source ${src}/status;source ${src}/reinicio;source ${src}/myip;source ${src}/id;source ${src}/back_ID;source ${src}/link;source ${src}/listID;source ${src}/gerar_key;source ${src}/power;source ${src}/comandos;source ${src}/update;source ${src}/donar;source ${src}/costes
 bot_token="$(cat ${dataU}/token)"
+read -p "	ENTER PARA INICIAR BOT" x
+[[ $x =@(x|X|Si|na) ]] && bash ./botdk/BotGen.sh || bash ./botdk/BotGen.sh
+
 	ShellBot.init --token "$bot_token" --monitor --flush --return map;ShellBot.username
 reply () {
         [[ ! -z ${callback_query_message_chat_id[$id]} ]] && var=${callback_query_message_chat_id[$id]} || var=${message_chat_id[$id]}
