@@ -11,10 +11,10 @@
 	echo -ne "\e[1;30m[\e[1;33mFILE: \e[1;32m${arqxbt}\e[1;30m] -->	";wget -O ${src}/${arqxbt} https://raw.githubusercontent.com/TiendaSSHbot/12m/main/${arqxbt} &> /dev/null;chmod +x ${src}/${arqxbt};echo -e " \e[1;32m[✓]DESCARGADO[✓]"
 	done
 	wget -O ${base}/ShellBot.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/ShellBot.sh &> /dev/null
+	wget -O $base/BotGen.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/BotGen.sh &> /dev/null;chmod +x ./botdk/*.sh
 		) && echo -e "\e[1;32m[✓]FILES BOT DESCARGADOS[✓]" || echo -e "\e[1;31m[X]ERROR[X]"
 	clear;echo -ne "\n\e[1;30m[\e[1;33m+\e[1;30m Ingrese su ID: ";read id;echo -ne "\e[1;30m[\e[1;33m•\e[1;30m] Ingresa tu token: ";read token
 	echo ${id} >${dataU}/Admin-ID;echo ${token} > ${dataU}/token
-	wget -O ${base}/BotGen.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/BotGen.sh &> /dev/null;chmod +x ./botdk/*.sh
 	fi
 LINE="   ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••"
 	source ./botdk/ShellBot.sh;source ${src}/menu;source ${src}/ayuda;source ${src}/cache;source ${src}/invalido;source ${src}/status;source ${src}/reinicio;source ${src}/myip;source ${src}/id;source ${src}/back_ID;source ${src}/link;source ${src}/listID;source ${src}/gerar_key;source ${src}/power;source ${src}/comandos;source ${src}/update;source ${src}/donar;source ${src}/costes
