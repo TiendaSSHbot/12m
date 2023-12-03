@@ -5,7 +5,7 @@ dir="${dir} ${CIDdir} ${SRC} ${keytxt} ${CIDRESS}"
 	for Dir in $dir; do
 	[[ ! -e $Dir ]] && mkdir -p $Dir &> /dev/null
 	done
-bot="comandos gerar_key link power ayuda costes id listID reinicio back_ID donar invalido menu status cache kill_drop.sh myip update"
+bot="comandos BotGen.sh ShellBot.sh gerar_key link power ayuda costes id listID reinicio back_ID donar invalido menu status cache kill_drop.sh myip update"
 	for arqxbt in $bot; do
 	[[ ! -e ${SRC}/${arqxbt} ]] && {
 	wget -O ${SRC}/$arqxbt https://raw.githubusercontent.com/TiendaSSHbot/12m/main/$arqxbt &> /dev/null;chmod 777 $arqxbt
