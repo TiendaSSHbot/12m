@@ -6,18 +6,20 @@
 		for dirs in $dir; do
 	mkdir -p $dirs &> /dev/null
 		done
-	src="./botdk/data-code";base="./botdk";dataU="./botdk/data-usr";arqbot="comandos gerar_key link power ayuda costes listID reinicio back_ID donar invalido menu status cache myip update kill_drop.sh id";clear
+	src="botdk/data-code";base="./botdk";dataU="./botdk/data-usr";arqbot="comandos gerar_key link power ayuda costes listID reinicio back_ID donar invalido menu status cache myip update kill_drop.sh id";clear
 	for arqxbt in $arqbot; do
 	echo -ne "\e[1;30m[\e[1;33mFILE: \e[1;32m${arqxbt}\e[1;30m] -->	";wget -O ${src}/${arqxbt} https://raw.githubusercontent.com/TiendaSSHbot/12m/main/${arqxbt} &> /dev/null;chmod +x ${src}/${arqxbt};echo -e " \e[1;32m[✓]DESCARGADO[✓]"
 	done
 	wget -O ${base}/ShellBot.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/ShellBot.sh &> /dev/null
 	wget -O $base/BotGen.sh https://raw.githubusercontent.com/TiendaSSHbot/12m/main/BotGen.sh &> /dev/null;chmod +x ./botdk/*.sh
 		) && echo -e "\e[1;32m[✓]FILES BOT DESCARGADOS[✓]" || echo -e "\e[1;31m[X]ERROR[X]"
-	clear;echo -ne "\n\e[1;30m[\e[1;33m+\e[1;30m Ingrese su ID: ";read id;echo -ne "\e[1;30m[\e[1;33m•\e[1;30m] Ingresa tu token: ";read token
-	echo -e "${id}" >> ${dataU}/Admin-ID;echo -e "${token}" >> ${dataU}/token
 	fi
 LINE="   ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••"
-	source ./botdk/ShellBot.sh;source ${src}/menu;source ${src}/ayuda;source ${src}/cache;source ${src}/invalido;source ${src}/status;source ${src}/reinicio;source ${src}/myip;source ${src}/id;source ${src}/back_ID;source ${src}/link;source ${src}/listID;source ${src}/gerar_key;source ${src}/power;source ${src}/comandos;source ${src}/update;source ${src}/donar;source ${src}/costes
+	dataU="botdk/data-usr";src="botdk/data-code"
+	clear;echo -ne "\n\e[1;30m[\e[1;33m+\e[1;30m Ingrese su ID: ";read id;echo -ne "\e[1;30m[\e[1;33m•\e[1;30m] Ingresa tu token: ";read token
+	echo -e "$id" >> ${dataU}/Admin-ID;echo -e "$token" >> ${dataU}/token
+
+source ./ShellBot.sh;source ${src}/menu;source ${src}/ayuda;source ${src}/cache;source ${src}/invalido;source ${src}/status;source ${src}/reinicio;source ${src}/myip;source ${src}/id;source ${src}/back_ID;source ${src}/link;source ${src}/listID;source ${src}/gerar_key;source ${src}/power;source ${src}/comandos;source ${src}/update;source ${src}/donar;source ${src}/costes
 bot_token="$(cat ${dataU}/token)"
 	ShellBot.init --token "$bot_token" --monitor --flush --return map;ShellBot.username
 reply () {
@@ -267,7 +269,7 @@ while true; do
             [[ -z $comando ]] && comando=(${callback_query_data[$id]})
             #echo "comando $comando"
 
-            [[ ! -e "${base}/Admin-ID" ]] && echo "null" > ${base}/Admin-ID
+            [[ ! -e "${dataU}/Admin-ID" ]] && echo "null" > ${base}/Admin-ID
             permited=$(cat ${dataU}/Admin-ID | awk '{print $1}')
             comand
     done
